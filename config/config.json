@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "root",
+    "password": "ghislain",
+    "database": "resto",
+    "host": "localhost",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": "ghislain",
+    "database": "resto",
+    "host": "localhost",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "cagi_resto",
+    "password": "x2N51nCP#IEDmuzC",
+    "database": "cagi_resto",
+    "host": "cagiresto.zentechnologies.net",
+    "dialect": "mysql"
+  }
+}

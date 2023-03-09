@@ -1,0 +1,16 @@
+creation d'une nouvelle table:
+1. npx sequelize-cli model:create --name Pay --attributes nom:string
+2. supprimer le fichier migration qui a été créé automatiquement
+3. editer le fichier model pour refleter les champs du fichier migration
+    generer le fichier migration avec l'outil sequelize-mig 
+4. sequelize-mig migration:make -n ajoutpays  
+    faire la migration
+5.  npx sequelize db:migrate
+
+
+exposition de l'API   
+
+1. creation du fichier controller   
+2. creation du fichier route 
+3. edition du fichier serveur.js pour integrer la route 
+
