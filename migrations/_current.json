@@ -1,5 +1,76 @@
 {
     "tables": {
+        "accompagnement": {
+            "tableName": "accompagnement",
+            "schema": {
+                "id": {
+                    "autoIncrement": true,
+                    "primaryKey": true,
+                    "comment": "ID",
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "nom": {
+                    "allowNull": false,
+                    "comment": "Nom",
+                    "field": "nom",
+                    "seqType": "Sequelize.STRING"
+                },
+                "photo": {
+                    "allowNull": false,
+                    "comment": "Photo",
+                    "field": "photo",
+                    "seqType": "Sequelize.STRING"
+                },
+                "photo1": {
+                    "allowNull": true,
+                    "comment": "Photo 1",
+                    "field": "photo1",
+                    "seqType": "Sequelize.STRING"
+                },
+                "photo2": {
+                    "allowNull": true,
+                    "comment": "Photo 2",
+                    "field": "photo2",
+                    "seqType": "Sequelize.STRING"
+                },
+                "photo3": {
+                    "allowNull": true,
+                    "comment": "Photo 3",
+                    "field": "photo3",
+                    "seqType": "Sequelize.STRING"
+                },
+                "prix": {
+                    "allowNull": false,
+                    "defaultValue": {
+                        "value": 0
+                    },
+                    "comment": "Prix",
+                    "field": "prix",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "actif": {
+                    "allowNull": false,
+                    "defaultValue": {
+                        "value": true
+                    },
+                    "comment": "Actif",
+                    "field": "actif",
+                    "seqType": "Sequelize.BOOLEAN"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        },
         "activite": {
             "tableName": "activite",
             "schema": {
@@ -468,6 +539,74 @@
                     "allowNull": false,
                     "field": "updatedAt",
                     "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        },
+        "ligneaccompagnement": {
+            "tableName": "ligneaccompagnement",
+            "schema": {
+                "id": {
+                    "autoIncrement": true,
+                    "primaryKey": true,
+                    "comment": "ID",
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "prix": {
+                    "allowNull": false,
+                    "comment": "Prix",
+                    "field": "prix",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "quantite": {
+                    "allowNull": false,
+                    "defaultValue": {
+                        "value": 1
+                    },
+                    "comment": "Quantité",
+                    "field": "quantite",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "prixtotal": {
+                    "allowNull": false,
+                    "comment": "Prix Total",
+                    "field": "prixtotal",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "accompagnement": {
+                    "allowNull": true,
+                    "name": "accompagnement",
+                    "field": "accompagnement",
+                    "references": {
+                        "model": "accompagnement",
+                        "key": "id"
+                    },
+                    "onDelete": "SET NULL",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "lignecommande": {
+                    "allowNull": true,
+                    "name": "lignecommande",
+                    "field": "lignecommande",
+                    "references": {
+                        "model": "lignecommande",
+                        "key": "id"
+                    },
+                    "onDelete": "SET NULL",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.INTEGER"
                 }
             },
             "indexes": []
@@ -1039,5 +1178,5 @@
     "path": "/Users/macbook/Documents/PROJETS/NODE/CAGIRESTAURANT/backend/migrations/_current.json",
     "backupPath": "/Users/macbook/Documents/PROJETS/NODE/CAGIRESTAURANT/backend/migrations/_current_bak.json",
     "exists": true,
-    "revision": 4
+    "revision": 5
 }

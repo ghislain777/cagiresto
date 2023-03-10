@@ -831,14 +831,11 @@
                     "field": "actif",
                     "seqType": "Sequelize.BOOLEAN"
                 },
-                "complement": {
-                    "allowNull": false,
-                    "defaultValue": {
-                        "value": false
-                    },
-                    "comment": "Est complement?",
-                    "field": "complement",
-                    "seqType": "Sequelize.BOOLEAN"
+                "composition": {
+                    "allowNull": true,
+                    "comment": "Composition",
+                    "field": "composition",
+                    "seqType": "Sequelize.STRING"
                 },
                 "createdAt": {
                     "allowNull": false,
@@ -1042,5 +1039,5 @@
     "path": "/Users/macbook/Documents/PROJETS/NODE/CAGIRESTAURANT/backend/migrations/_current.json",
     "backupPath": "/Users/macbook/Documents/PROJETS/NODE/CAGIRESTAURANT/backend/migrations/_current_bak.json",
     "exists": true,
-    "revision": 3
+    "revision": 4
 }

@@ -3,7 +3,7 @@ const { response, request } = require('express');
 const { where } = require('sequelize');
 const { Sequelize, Op } = require('sequelize');
 const fonctions = require('../fonctions');
-const { Client, Categorie,Quartier, Repa, Modedepayement } = require('../models');
+const { Client, Categorie,Quartier, Repa, Modedepayement, Accompagnement } = require('../models');
 const categorie = require('../models/categorie');
 const clientService = require('../services/client_service');
 const categorieController = require('./categorie_controller');
@@ -139,11 +139,16 @@ clientController.bootstrap = async (req, res) => {
                 include: categorieController.includeCategorie
             }
         )
+
+
+const accompagnements = await Accompagnement.findAll()
+
         retour = {
             categories: categories,
             repas: repas,
             modedepayements: modedepayements,
-            quartiers: quartiers
+            quartiers: quartiers,
+            accompagnements:accompagnements
         }
         return res.status(200).send(retour)
     } catch (error) {
