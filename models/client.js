@@ -34,13 +34,13 @@ module.exports = (sequelize, DataTypes) => {
     },
     telephone: {
       type: DataTypes.STRING,
+      unique: true,
       allowNull: false,
       comment: "Téléphone"
     },
     mail: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
       comment: "Mail"
     },
     actif: {

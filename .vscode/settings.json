@@ -1,4 +1,8 @@
 {
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#04491A",
+    "statusBar.background": "#04491A"
+  },
     "explorerTerminal.showDockerCommands": true,
   "explorerTerminal.commands": [
     {
@@ -51,6 +55,7 @@
       "multi": true
     },
     
-  ]
-
+  ],
+  
+ 
 }

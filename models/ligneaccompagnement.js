@@ -3,7 +3,7 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-    class LigneAccompagnement extends Model {
+    class Ligneaccompagnement extends Model {
         static associate(models) {
             // define association here
             this.belongsTo(models.Accompagnement, {
@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
         }
     }
 
-    LigneAccompagnement.init(
+    Ligneaccompagnement.init(
         {
             id: {
                 type: DataTypes.INTEGER,
@@ -49,11 +49,11 @@ module.exports = (sequelize, DataTypes) => {
         },
         {
             sequelize,
-            modelName: 'LigneAccompagnement',
+            modelName: 'Ligneaccompagnement',
             tableName: 'ligneaccompagnement',
             freezeTableName: true,
         }
     );
 
-    return LigneAccompagnement;
+    return Ligneaccompagnement;
 };

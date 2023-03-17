@@ -29,6 +29,11 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true,
             comment: "ID"
         },
+        alias: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            comment: "alias"
+        },
         ligne1: {
             type: DataTypes.STRING,
             allowNull: false,

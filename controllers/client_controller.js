@@ -3,7 +3,7 @@ const { response, request } = require('express');
 const { where } = require('sequelize');
 const { Sequelize, Op } = require('sequelize');
 const fonctions = require('../fonctions');
-const { Client, Categorie,Quartier, Repa, Modedepayement, Accompagnement } = require('../models');
+const { Client, Categorie, Quartier, Repa, Modedepayement, Accompagnement, Adresse } = require('../models');
 const categorie = require('../models/categorie');
 const clientService = require('../services/client_service');
 const categorieController = require('./categorie_controller');
@@ -14,14 +14,28 @@ const clientController = {}
 
 clientController.includeClient = [
     {
-        model:Quartier,
-        include:quartierController.includeQuartier
+        model: Quartier,
+        include: quartierController.includeQuartier
     }
 
 ]
 
 
 clientController.add = async (req, res) => {
+
+// on verifie l'unicite de l'adresse et du numero de telephone
+
+const c = await Client.findOne({
+    where: {
+        telephone:req.body.telephone
+    }
+})
+
+console.log(c);
+if (c!=null) {
+    return res.status(401).send("Ce numéro de téléphone est déjà utilisé")
+}
+
     try {
         const response = await Client.create(req.body)
         const client = await Client.findOne({
@@ -32,9 +46,18 @@ clientController.add = async (req, res) => {
 
         })
 
+        // on cree une adresse pour le nouveau client.
+await Adresse.create({
+    alias: "Mon adresse",
+    quartier: client.quartier,
+    client: client.id,
+    ligne1: client.Quartier.nom + " "+ client.Quartier.Commune.nom,
+    ligne2 : client.Quartier.Commune.Ville.nom + ", " + client.Quartier.Commune.Ville.Pay.nom
+})
+
         res.status(201).send(client)
     } catch (err) {
-        console.log(err.message)
+        console.log(err)
     }
 }
 
@@ -63,6 +86,7 @@ clientController.getAll = async (req, res) => {
 }
 
 clientController.update = async (req, res) => {
+
     try {
         const response = await Client.update(req.body, {
             where: {
@@ -76,6 +100,8 @@ clientController.update = async (req, res) => {
         })
         res.status(200).send(client)
     } catch (err) {
+
+        console.error(err)
         res.status(500).send(err.message)
     }
 }
@@ -141,14 +167,14 @@ clientController.bootstrap = async (req, res) => {
         )
 
 
-const accompagnements = await Accompagnement.findAll()
+        const accompagnements = await Accompagnement.findAll()
 
         retour = {
             categories: categories,
             repas: repas,
             modedepayements: modedepayements,
             quartiers: quartiers,
-            accompagnements:accompagnements
+            accompagnements: accompagnements
         }
         return res.status(200).send(retour)
     } catch (error) {
@@ -176,7 +202,7 @@ clientController.login = async (req, res) => {
             }
         })
         if (client == null) {
-            res.status(404).send('téléphone ou mot de passe incorrect')
+            res.status(401).send('téléphone ou mot de passe incorrect, veuillez re-éssayer')
             return
         }
         if (client.actif == false) {

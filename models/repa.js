@@ -28,12 +28,12 @@ module.exports = (sequelize, DataTypes) => {
       comment: "Nom"
     },
     prix: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.INTEGER,
       allowNull: false,
       comment: "Prix"
     },
     prixreduit: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.INTEGER,
       allowNull: true,
       comment: "Prix réduit"
     },

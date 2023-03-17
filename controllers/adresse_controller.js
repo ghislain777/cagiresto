@@ -3,11 +3,12 @@ const { response, request } = require('express');
 const { where } = require('sequelize');
 const { Sequelize, Op } = require('sequelize');
 const fonctions = require('../fonctions');
-const {  Adresse } = require('../models');
+const {  Adresse, Quartier,  } = require('../models');
+const quartierController = require('./quartier_controller');
 const adresseController = {}
 
 adresseController.includeAdresse = [
-
+{model: Quartier, include:quartierController.includeQuartier}
 ]
 
 

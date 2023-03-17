@@ -42,19 +42,19 @@ module.exports = (sequelize, DataTypes) => {
             comment: "Date de livraison"
         },
         prixtotal: {
-            type: DataTypes.DECIMAL(10, 0),
+            type: DataTypes.INTEGER,
             allowNull: false,
             defaultValue: 0,
             comment: "Prix total"
         },
         prixrepa: {
-            type: DataTypes.DECIMAL(10, 0),
+            type: DataTypes.INTEGER,
             allowNull: false,
             defaultValue: 0,
             comment: "Prix des repas"
         },
         prixlivraison: {
-            type: DataTypes.DECIMAL(10, 0),
+            type: DataTypes.INTEGER,
             allowNull: false,
             defaultValue: 0,
             comment: "Prix de livraison"

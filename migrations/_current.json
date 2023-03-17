@@ -160,6 +160,12 @@
                     "field": "id",
                     "seqType": "Sequelize.INTEGER"
                 },
+                "alias": {
+                    "allowNull": true,
+                    "comment": "alias",
+                    "field": "alias",
+                    "seqType": "Sequelize.STRING"
+                },
                 "ligne1": {
                     "allowNull": false,
                     "comment": "Ligne 1",
@@ -276,6 +282,7 @@
                     "seqType": "Sequelize.STRING"
                 },
                 "telephone": {
+                    "unique": true,
                     "allowNull": false,
                     "comment": "Téléphone",
                     "field": "telephone",
@@ -283,7 +290,6 @@
                 },
                 "mail": {
                     "allowNull": false,
-                    "unique": true,
                     "comment": "Mail",
                     "field": "mail",
                     "seqType": "Sequelize.STRING"
@@ -363,7 +369,7 @@
                     },
                     "comment": "Prix total",
                     "field": "prixtotal",
-                    "seqType": "Sequelize.DECIMAL(10)"
+                    "seqType": "Sequelize.INTEGER"
                 },
                 "prixrepa": {
                     "allowNull": false,
@@ -372,7 +378,7 @@
                     },
                     "comment": "Prix des repas",
                     "field": "prixrepa",
-                    "seqType": "Sequelize.DECIMAL(10)"
+                    "seqType": "Sequelize.INTEGER"
                 },
                 "prixlivraison": {
                     "allowNull": false,
@@ -381,7 +387,7 @@
                     },
                     "comment": "Prix de livraison",
                     "field": "prixlivraison",
-                    "seqType": "Sequelize.DECIMAL(10)"
+                    "seqType": "Sequelize.INTEGER"
                 },
                 "statut": {
                     "allowNull": false,
@@ -625,13 +631,13 @@
                     "allowNull": false,
                     "comment": "Prix unitaire",
                     "field": "prixunitaire",
-                    "seqType": "Sequelize.DECIMAL(10, 2)"
+                    "seqType": "Sequelize.INTEGER"
                 },
                 "prixtotal": {
                     "allowNull": false,
                     "comment": "Prix total",
                     "field": "prixtotal",
-                    "seqType": "Sequelize.DECIMAL(10, 2)"
+                    "seqType": "Sequelize.INTEGER"
                 },
                 "quantite": {
                     "allowNull": false,
@@ -658,6 +664,18 @@
                         "key": "id"
                     },
                     "onDelete": "SET NULL",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "repa": {
+                    "allowNull": false,
+                    "name": "repa",
+                    "field": "repa",
+                    "references": {
+                        "model": "repa",
+                        "key": "id"
+                    },
+                    "onDelete": "NO ACTION",
                     "onUpdate": "CASCADE",
                     "seqType": "Sequelize.INTEGER"
                 }
@@ -929,13 +947,13 @@
                     "allowNull": false,
                     "comment": "Prix",
                     "field": "prix",
-                    "seqType": "Sequelize.FLOAT"
+                    "seqType": "Sequelize.INTEGER"
                 },
                 "prixreduit": {
                     "allowNull": true,
                     "comment": "Prix réduit",
                     "field": "prixreduit",
-                    "seqType": "Sequelize.FLOAT"
+                    "seqType": "Sequelize.INTEGER"
                 },
                 "photo": {
                     "allowNull": true,
@@ -1178,5 +1196,5 @@
     "path": "/Users/macbook/Documents/PROJETS/NODE/CAGIRESTAURANT/backend/migrations/_current.json",
     "backupPath": "/Users/macbook/Documents/PROJETS/NODE/CAGIRESTAURANT/backend/migrations/_current_bak.json",
     "exists": true,
-    "revision": 5
+    "revision": 9
 }

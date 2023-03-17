@@ -12,7 +12,13 @@ module.exports = (sequelize, DataTypes) => {
             models.Commande.hasMany(this, {
                 foreignKey: { name: "commande", field: "commande", allowNull: true }
             })
-            // définir les associations ici, si nécessaire
+
+            this.belongsTo(models.Repa, {
+                foreignKey: { name: 'repa', field: "repa", allowNull: false }
+            })
+            models.Repa.hasMany(this, {
+                foreignKey: { name: "repa", field: "repa", allowNull: false }
+            })
         }
     }
 
@@ -24,12 +30,12 @@ module.exports = (sequelize, DataTypes) => {
             comment: "ID"
         },
         prixunitaire: {
-            type: DataTypes.DECIMAL(10, 2),
+            type: DataTypes.INTEGER,
             allowNull: false,
             comment: "Prix unitaire"
         },
         prixtotal: {
-            type: DataTypes.DECIMAL(10, 2),
+            type: DataTypes.INTEGER,
             allowNull: false,
             comment: "Prix total"
         },
