@@ -68,6 +68,17 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true,
       comment: "Composition"
     },
+    disponible: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true,
+      comment: "Disponibles?"
+    },
+    tempsdepreparation: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      comment: "Temps de préparation"
+    },
   }, {
     sequelize,
     modelName: 'Repa',

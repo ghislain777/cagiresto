@@ -2,9 +2,10 @@ var  {admin} = require(  "../config/firebase_config")
 var notificationService = {}
 
 
-notificationService.NotifierMisajourCommande = (commande) => {
+notificationService.NotifierMisajourCommande = async (commande) => {
 
     console.error("Notification de la mise à jour de la commande "+commande.id)
+    try {
     const notificationpush = {
         notification: notificationService.getNotification(commande),
         data:{
@@ -18,8 +19,15 @@ notificationService.NotifierMisajourCommande = (commande) => {
         },
         token: commande.Client.token
     }
-    admin.messaging().send(notificationpush)
+   await  admin.messaging().send(notificationpush)
+      
+    }
+     catch (error) {
+        console.log(error)
+        
+    }
 }
+
 
     notificationService.getNotification = (commande) => {
         switch (commande.statut) {

@@ -369,7 +369,7 @@
                     },
                     "comment": "Prix total",
                     "field": "prixtotal",
-                    "seqType": "Sequelize.DECIMAL(10)"
+                    "seqType": "Sequelize.INTEGER"
                 },
                 "prixrepa": {
                     "allowNull": false,
@@ -378,7 +378,7 @@
                     },
                     "comment": "Prix des repas",
                     "field": "prixrepa",
-                    "seqType": "Sequelize.DECIMAL(10)"
+                    "seqType": "Sequelize.INTEGER"
                 },
                 "prixlivraison": {
                     "allowNull": false,
@@ -387,7 +387,7 @@
                     },
                     "comment": "Prix de livraison",
                     "field": "prixlivraison",
-                    "seqType": "Sequelize.DECIMAL(10)"
+                    "seqType": "Sequelize.INTEGER"
                 },
                 "statut": {
                     "allowNull": false,
@@ -631,13 +631,13 @@
                     "allowNull": false,
                     "comment": "Prix unitaire",
                     "field": "prixunitaire",
-                    "seqType": "Sequelize.DECIMAL(10, 2)"
+                    "seqType": "Sequelize.INTEGER"
                 },
                 "prixtotal": {
                     "allowNull": false,
                     "comment": "Prix total",
                     "field": "prixtotal",
-                    "seqType": "Sequelize.DECIMAL(10, 2)"
+                    "seqType": "Sequelize.INTEGER"
                 },
                 "quantite": {
                     "allowNull": false,
@@ -947,13 +947,13 @@
                     "allowNull": false,
                     "comment": "Prix",
                     "field": "prix",
-                    "seqType": "Sequelize.FLOAT"
+                    "seqType": "Sequelize.INTEGER"
                 },
                 "prixreduit": {
                     "allowNull": true,
                     "comment": "Prix réduit",
                     "field": "prixreduit",
-                    "seqType": "Sequelize.FLOAT"
+                    "seqType": "Sequelize.INTEGER"
                 },
                 "photo": {
                     "allowNull": true,
@@ -992,6 +992,21 @@
                     "allowNull": true,
                     "comment": "Composition",
                     "field": "composition",
+                    "seqType": "Sequelize.STRING"
+                },
+                "disponible": {
+                    "allowNull": false,
+                    "defaultValue": {
+                        "value": true
+                    },
+                    "comment": "Disponibles?",
+                    "field": "disponible",
+                    "seqType": "Sequelize.STRING"
+                },
+                "tempsdepreparation": {
+                    "allowNull": true,
+                    "comment": "Temps de préparation",
+                    "field": "tempsdepreparation",
                     "seqType": "Sequelize.STRING"
                 },
                 "createdAt": {
@@ -1196,5 +1211,5 @@
     "path": "/Users/macbook/Documents/PROJETS/NODE/CAGIRESTAURANT/backend/migrations/_current.json",
     "backupPath": "/Users/macbook/Documents/PROJETS/NODE/CAGIRESTAURANT/backend/migrations/_current_bak.json",
     "exists": true,
-    "revision": 8
+    "revision": 10
 }

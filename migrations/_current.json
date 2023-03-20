@@ -994,6 +994,21 @@
                     "field": "composition",
                     "seqType": "Sequelize.STRING"
                 },
+                "disponible": {
+                    "allowNull": false,
+                    "defaultValue": {
+                        "value": true
+                    },
+                    "comment": "Disponibles?",
+                    "field": "disponible",
+                    "seqType": "Sequelize.BOOLEAN"
+                },
+                "tempsdepreparation": {
+                    "allowNull": true,
+                    "comment": "Temps de préparation",
+                    "field": "tempsdepreparation",
+                    "seqType": "Sequelize.STRING"
+                },
                 "createdAt": {
                     "allowNull": false,
                     "field": "createdAt",
@@ -1196,5 +1211,5 @@
     "path": "/Users/macbook/Documents/PROJETS/NODE/CAGIRESTAURANT/backend/migrations/_current.json",
     "backupPath": "/Users/macbook/Documents/PROJETS/NODE/CAGIRESTAURANT/backend/migrations/_current_bak.json",
     "exists": true,
-    "revision": 9
+    "revision": 11
 }
