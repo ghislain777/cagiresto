@@ -113,6 +113,7 @@ commandeController.getAll = async (req, res) => {
                     ...parametresRequete
                 },
                 include: [
+                    { model: Livreur },
                     { model: Client },
                     { model: Adresse, include: adresseController.includeAdresse },
                     { model: Modedepayement },
