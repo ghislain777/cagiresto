@@ -449,6 +449,18 @@
                     "onDelete": "SET NULL",
                     "onUpdate": "CASCADE",
                     "seqType": "Sequelize.INTEGER"
+                },
+                "livreur": {
+                    "allowNull": true,
+                    "name": "livreur",
+                    "field": "livreur",
+                    "references": {
+                        "model": "livreur",
+                        "key": "id"
+                    },
+                    "onDelete": "SET NULL",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.INTEGER"
                 }
             },
             "indexes": []
@@ -479,16 +491,6 @@
                     "comment": "Description",
                     "field": "description",
                     "seqType": "Sequelize.STRING"
-                },
-                "createdAt": {
-                    "allowNull": false,
-                    "field": "createdAt",
-                    "seqType": "Sequelize.DATE"
-                },
-                "updatedAt": {
-                    "allowNull": false,
-                    "field": "updatedAt",
-                    "seqType": "Sequelize.DATE"
                 },
                 "ville": {
                     "allowNull": true,
@@ -676,6 +678,102 @@
                         "key": "id"
                     },
                     "onDelete": "NO ACTION",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.INTEGER"
+                }
+            },
+            "indexes": []
+        },
+        "livreur": {
+            "tableName": "livreur",
+            "schema": {
+                "id": {
+                    "autoIncrement": true,
+                    "primaryKey": true,
+                    "comment": "ID",
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "photo": {
+                    "allowNull": true,
+                    "comment": "Photo",
+                    "defaultValue": {
+                        "value": "photolivreur/avatar_livreur.png"
+                    },
+                    "field": "photo",
+                    "seqType": "Sequelize.STRING"
+                },
+                "nom": {
+                    "allowNull": false,
+                    "comment": "Nom",
+                    "field": "nom",
+                    "seqType": "Sequelize.STRING"
+                },
+                "prenom": {
+                    "allowNull": false,
+                    "comment": "Prénom",
+                    "field": "prenom",
+                    "seqType": "Sequelize.STRING"
+                },
+                "telephone": {
+                    "unique": true,
+                    "allowNull": false,
+                    "comment": "Téléphone",
+                    "field": "telephone",
+                    "seqType": "Sequelize.STRING"
+                },
+                "email": {
+                    "allowNull": true,
+                    "unique": false,
+                    "comment": "Email",
+                    "field": "email",
+                    "seqType": "Sequelize.STRING"
+                },
+                "motdepasse": {
+                    "allowNull": false,
+                    "comment": "Mot de passe",
+                    "field": "motdepasse",
+                    "seqType": "Sequelize.STRING"
+                },
+                "token": {
+                    "allowNull": true,
+                    "comment": "token",
+                    "field": "token",
+                    "seqType": "Sequelize.STRING"
+                },
+                "dateposition": {
+                    "allowNull": true,
+                    "comment": "Date de position",
+                    "field": "dateposition",
+                    "seqType": "Sequelize.DATE"
+                },
+                "actif": {
+                    "allowNull": false,
+                    "defaultValue": {
+                        "value": true
+                    },
+                    "comment": "Actif",
+                    "field": "actif",
+                    "seqType": "Sequelize.BOOLEAN"
+                },
+                "libre": {
+                    "allowNull": false,
+                    "defaultValue": {
+                        "value": true
+                    },
+                    "comment": "Libre?",
+                    "field": "libre",
+                    "seqType": "Sequelize.BOOLEAN"
+                },
+                "quartier": {
+                    "allowNull": true,
+                    "name": "quartier",
+                    "field": "quartier",
+                    "references": {
+                        "model": "quartier",
+                        "key": "id"
+                    },
+                    "onDelete": "SET NULL",
                     "onUpdate": "CASCADE",
                     "seqType": "Sequelize.INTEGER"
                 }
@@ -871,6 +969,48 @@
                     "field": "role",
                     "references": {
                         "model": "role",
+                        "key": "id"
+                    },
+                    "onDelete": "SET NULL",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.INTEGER"
+                }
+            },
+            "indexes": []
+        },
+        "prixlivraison": {
+            "tableName": "prixlivraison",
+            "schema": {
+                "id": {
+                    "autoIncrement": true,
+                    "primaryKey": true,
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "montant": {
+                    "allowNull": false,
+                    "defaultValue": {
+                        "value": 0
+                    },
+                    "comment": "Montant",
+                    "field": "montant",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "description": {
+                    "allowNull": true,
+                    "defaultValue": {
+                        "value": ""
+                    },
+                    "comment": "Description",
+                    "field": "description",
+                    "seqType": "Sequelize.STRING"
+                },
+                "commune": {
+                    "allowNull": true,
+                    "name": "commune",
+                    "field": "commune",
+                    "references": {
+                        "model": "commune",
                         "key": "id"
                     },
                     "onDelete": "SET NULL",
@@ -1211,5 +1351,5 @@
     "path": "/Users/macbook/Documents/PROJETS/NODE/CAGIRESTAURANT/backend/migrations/_current.json",
     "backupPath": "/Users/macbook/Documents/PROJETS/NODE/CAGIRESTAURANT/backend/migrations/_current_bak.json",
     "exists": true,
-    "revision": 11
+    "revision": 22
 }

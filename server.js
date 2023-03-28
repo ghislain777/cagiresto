@@ -21,6 +21,9 @@ const quartierRoutes = require('./routes/quartier_routes.js')
  const clientRoutes = require('./routes/client_routes.js')
  const accompagnementRoutes = require('./routes/accompagnement_routes.js')
  const ligneaccompagnementRoutes = require('./routes/ligneaccompagnement_routes.js')
+ const livreurRoutes = require('./routes/livreur_routes.js')
+ const prixlivraisonRoutes = require('./routes/prixlivraison_routes.js')
+
 
 
 
@@ -70,6 +73,10 @@ app.use('/api/adresses', adresseRoutes);
 app.use('/api/clients', clientRoutes); 
 app.use('/api/accompagnements', accompagnementRoutes); 
 app.use('/api/ligneaccompagnements', ligneaccompagnementRoutes); 
+app.use('/api/livreurs', livreurRoutes); 
+app.use('/api/prixlivraisons', prixlivraisonRoutes); 
+
+
 
 
 

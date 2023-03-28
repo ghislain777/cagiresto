@@ -3,7 +3,7 @@ const { response, request } = require('express');
 const { where } = require('sequelize');
 const { Sequelize, Op } = require('sequelize');
 const fonctions = require('../fonctions');
-const { Commune, Ville } = require('../models');
+const { Commune, Ville, Prixlivraison } = require('../models');
 const villeController = require('./ville_controller');
 
 const communeController = {}
@@ -20,6 +20,10 @@ communeController.includeCommune = [
 communeController.add = async (req, res) => {
     try {
         const response = await Commune.create(req.body)
+        // await Prixlivraison.create({
+        //     commune: response.id,
+        //     montant:0
+        // })
         res.status(201).send(response)
     } catch (err) {
         console.log(err.message)

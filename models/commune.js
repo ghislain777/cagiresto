@@ -1,6 +1,6 @@
 'use strict';
 const {
-  Model
+  Model, Sequelize
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Commune extends Model {
@@ -39,7 +39,17 @@ module.exports = (sequelize, DataTypes) => {
   },{
     sequelize,
     modelName: 'Commune',
-    tableName: 'commune'
+    tableName: 'commune',
+    timestamps:false
   });
+
+  Commune.afterCreate("hookAC", async (commune, options) => {
+    // on cree le prix pour la nouvelle commune.
+    await    sequelize.models.Prixlivraison.create({
+      montant:0,
+      commune: commune.id,
+      description: `prix pour les commandes de la commune:: ${commune.nom}`
+    })
+  })
   return Commune;
 };

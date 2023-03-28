@@ -3,7 +3,7 @@ const { response, request } = require('express');
 const { where } = require('sequelize');
 const { Sequelize, Op } = require('sequelize');
 const fonctions = require('../fonctions');
-const { Client, Categorie, Quartier, Repa, Modedepayement, Accompagnement, Adresse } = require('../models');
+const { Client, Categorie, Commune, Quartier, Repa, Modedepayement,Prixlivraison, Accompagnement, Adresse } = require('../models');
 const categorie = require('../models/categorie');
 const clientService = require('../services/client_service');
 const categorieController = require('./categorie_controller');
@@ -150,7 +150,8 @@ clientController.getBy = async (req, res) => {
 }
 
 clientController.bootstrap = async (req, res) => {
-    try {
+    console.log("Nouvelle requete")
+  //  try {
         const quartiers = await Quartier.findAll({
             include: quartierController.includeQuartier
         })
@@ -165,6 +166,9 @@ clientController.bootstrap = async (req, res) => {
                 include: categorieController.includeCategorie
             }
         )
+        const prixlivraisons = await Prixlivraison.findAll({
+            include: [Commune]
+        })
 
 
         const accompagnements = await Accompagnement.findAll()
@@ -174,13 +178,14 @@ clientController.bootstrap = async (req, res) => {
             repas: repas,
             modedepayements: modedepayements,
             quartiers: quartiers,
-            accompagnements: accompagnements
+            accompagnements: accompagnements,
+            prixlivraisons:prixlivraisons
         }
         return res.status(200).send(retour)
-    } catch (error) {
-        console.log(error)
-        res.status(500).send(error.message)
-    }
+    // } catch (error) {
+    //     console.log(error)
+    //     res.status(500).send(error.message)
+    // }
 }
 
 clientController.login = async (req, res) => {

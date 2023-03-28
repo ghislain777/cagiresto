@@ -1,5 +1,5 @@
 const clientController = require("../controllers/client_controller")
-const { Client, Lignecommande, Repa, Commande, Adresse, Modedepayement, Quartier, Ligneaccompagnement, Accompagnement } = require("../models")
+const { Client, Livreur, Lignecommande, Repa, Prixlivraison, Commande, Adresse, Modedepayement, Quartier, Ligneaccompagnement, Accompagnement } = require("../models")
 const adresseController = require("../controllers/adresse_controller")
 const modedepayementController = require("../controllers/modedepayement_controller")
 const quartierController = require("../controllers/quartier_controller")
@@ -26,6 +26,7 @@ clientService.getDataClient = async (idClient) => {
     const mescommandes = await Commande.findAll({
         include: [
             { model: Client },
+            { model: Livreur },
             { model: Adresse, include: adresseController.includeAdresse },
             { model: Modedepayement },
             {
@@ -48,10 +49,13 @@ clientService.getDataClient = async (idClient) => {
         ]
     })
 
+  
+
     const retour = {
         profil: profil,
         mescommandes: mescommandes,
         mesadresses: mesadresses,
+        
     }
     return retour
 

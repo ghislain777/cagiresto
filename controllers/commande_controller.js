@@ -3,7 +3,7 @@ const { response, request } = require('express');
 const { where } = require('sequelize');
 const { Sequelize, Op } = require('sequelize');
 const fonctions = require('../fonctions');
-const { Commande, Client, Adresse, Modedepayement, Repa, Lignecommande, sequelize, Ligneaccompagnement, Accompagnement } = require('../models');
+const { Commande, Client, Livreur, Adresse, Modedepayement, Repa, Lignecommande, sequelize, Ligneaccompagnement, Accompagnement } = require('../models');
 const adresseController = require('./adresse_controller');
 const clientController = require('./client_controller');
 const modedepayementController = require('./modedepayement_controller');
@@ -12,11 +12,14 @@ const notificationService = require('../services/notification_service')
 const commandeController = {}
 
 commandeController.includeCommande = [
+    {model: Livreur},
     { model: Client },
     { model: Adresse, include: adresseController.includeAdresse },
     { model: Modedepayement },
     {
         model: Lignecommande, include: [
+
+            
             // {model: Commande},
             { model: Repa, include: repaController.includeRepa },
             {
@@ -37,8 +40,8 @@ commandeController.add = async (req, res) => {
         client: client,
         adresse: commande.adresse,
         statut: "Nouveau",
-        prixtotal: panier.prixtotal,
-        prixlivraison: 0,
+        prixtotal: panier.prixtotal + commande.prixlivraison,
+        prixlivraison: commande.prixlivraison,
         prixrepa: panier.prixtotal,
         modedepayement: commande.modedepayement,
         noteclient: commande.noteclient,
