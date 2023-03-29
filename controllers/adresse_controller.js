@@ -3,38 +3,47 @@ const { response, request } = require('express');
 const { where } = require('sequelize');
 const { Sequelize, Op } = require('sequelize');
 const fonctions = require('../fonctions');
-const {  Adresse, Quartier,  } = require('../models');
+const { Adresse, Quartier, Commande } = require('../models');
 const quartierController = require('./quartier_controller');
 const adresseController = {}
 
 adresseController.includeAdresse = [
-{model: Quartier, include:quartierController.includeQuartier}
+    { model: Quartier, include: quartierController.includeQuartier }
 ]
 
 
 adresseController.add = async (req, res) => {
     try {
         const response = await Adresse.create(req.body)
-        res.status(201).send(response)
+
+        const retour = await Adresse.findOne({
+            where: {
+                id: response.id
+            },
+            include: adresseController.includeAdresse
+        })
+
+        res.status(201).send(retour)
     } catch (err) {
         console.log(err.message)
+        res.status(500).send(err.message)
     }
 }
 
 adresseController.getAll = async (req, res) => {
 
-const parametres = fonctions.removeNullValues(req.query)
-const parametresRequete = fonctions.removePaginationkeys(parametres)
+    const parametres = fonctions.removeNullValues(req.query)
+    const parametresRequete = fonctions.removePaginationkeys(parametres)
     try {
         const { itemsPerPage = 30, page = 1 } = req.query
         const resultat = await Adresse.findAndCountAll(
             {
                 offset: (page - 1) * itemsPerPage,
-                limit: itemsPerPage*1,
-                order:[['id', 'desc']],
+                limit: itemsPerPage * 1,
+                order: [['id', 'desc']],
                 where: {
                     ...parametresRequete
-                 
+
                 },
                 include: adresseController.includeAdresse,
             }
@@ -65,12 +74,23 @@ adresseController.update = async (req, res) => {
 
 adresseController.delete = async (req, res) => {
     try {
-        const response = await Adresse.destroy({
+        const adresses = await Commande.findAll({
             where: {
-                id: res.params.id
+                adresse: req.params.id
             }
         })
-        res.status(200).send('Adresse supprimé avec succès')
+        console.log(adresses.length )
+        if (adresses.length != 0) {
+            res.status(401).send(" impossible de supprimer l'adresse. elle a déjà été utilisée dans une commande")
+        }
+        else {
+            const response = await Adresse.destroy({
+                where: {
+                    id: req.params.id
+                }
+            })
+            res.status(200).send('Adresse supprimé avec succès')
+        }
     } catch (err) {
         res.status(500).send(err.message)
     }
@@ -97,9 +117,9 @@ adresseController.getById = async (req, res) => {
 
 adresseController.getBy = async (req, res) => {
     try {
-      const  response = await Adresse.findAndCountAll({
+        const response = await Adresse.findAndCountAll({
             where: req.body,
-            include:adresseController.includeAdresse
+            include: adresseController.includeAdresse
         })
         res.send(response)
     } catch (err) {

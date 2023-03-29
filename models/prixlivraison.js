@@ -17,7 +17,6 @@ module.exports = (sequelize, DataTypes) => {
             models.Commune.hasMany(this, {
                 foreignKey: { name: "commune", field: "commune", allowNull: true }
             })
-
         }
     }
     Prixlivraison.init({

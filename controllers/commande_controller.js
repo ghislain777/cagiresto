@@ -57,7 +57,7 @@ commandeController.add = async (req, res) => {
             prixtotal: lignepanier.prixtotal
 
         })
-        console.log(lignepanier.prixtotal)
+        //console.log(lignepanier.prixtotal)
         lignepanier.ligneaccompagnements.forEach(async ligneaccompagnement => {
 
             const laligneaccompagnement = await Ligneaccompagnement.create({
@@ -93,7 +93,7 @@ commandeController.add = async (req, res) => {
             }
         ]
     })
-    console.log(retour)
+  //  console.log(retour)
     return res.status(201).send(retour)
 
 }
