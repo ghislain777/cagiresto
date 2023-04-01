@@ -9,5 +9,6 @@ utilisateurRoutes.delete('/:id', async (req, res) =>  utilisateurController.dele
 utilisateurRoutes.get('/:id', async (req, res) =>  utilisateurController.getById(req, res))
 utilisateurRoutes.post('/getby', async (req, res) =>  utilisateurController.getBy(req, res))
 utilisateurRoutes.post('/login', async (req, res) =>  utilisateurController.login(req, res))
+utilisateurRoutes.post('/loginmobile', async (req, res) =>  utilisateurController.loginmobile(req, res))
 
 module.exports = utilisateurRoutes

@@ -2,7 +2,12 @@ const { response } = require('express');
 var Sequelize = require('sequelize');
 const fonctions = require('../fonctions');
 
-const { Utilisateur, Role, Privilege, Menu, Activite } = require("../models")
+const { Utilisateur, Role, Privilege, Menu, Activite, Commande, Quartier, Modedepayement, Categorie, Prixlivraison, Accompagnement, Client, Livreur, Repa } = require("../models");
+const clientController = require('./client_controller');
+const commandeController = require('./commande_controller');
+const livreurController = require('./livreur_controller');
+const modedepayementController = require('./modedepayement_controller');
+const repaController = require('./repa_controller');
 
 const utilisateurController = {
 
@@ -164,9 +169,82 @@ const utilisateurController = {
         catch (error) {
             console.error(error)
             res.send(error.message)
+        }
+    },
+
+    loginmobile: async (req, res) => {
+try {
+    if (!req.body.email) {
+        res.status(402).send("Adresse email requise")
+        return
+    }
+    if (!req.body.motdepasse) {
+        res.status(402).send("le mot de passe est requis")
+        return
+    }
+    // console.log(req.body)
+    const utilisateur = await Utilisateur.findOne({
+        where: {
+            email: req.body.email
+        },
+        include: [Role]
+    })
+    if (!utilisateur) {
+        res.status(200).send({code: 401, message:"Adresse Email ou mot de passe incorrect"})
+        return
+    }
+    if (utilisateur.motdepasse == req.body.motdepasse) {
+
+        if (utilisateur.actif == false) {
+            res.status(200).send({code:403, message:"Utilisateur désactivé, veuillez contacter l'administrateur"})
+            return
+        }
+
+const commandes = await Commande.findAll({
+    order: [["id", "desc"]],
+    include: commandeController.includeCommande
+})
+
+const repas = await Repa.findAll({
+    include:repaController.includeRepa
+})
+const livreurs = await Livreur.findAll({
+include: livreurController.includeLivreur
+})
+
+const modedepayements = await Modedepayement.findAll({
+    include: modedepayementController.includeModedepayement
+})
+
+const accompagnements = await Accompagnement.findAll()
+const clients = await Client.findAll({
+    include: clientController.includeClient
+})
+
+const retour = {
+    commandes:commandes,
+    repas:repas,
+    livreurs:livreurs,
+    accompagnements:accompagnements,
+    modedepayements:modedepayements,
+    profil:utilisateur,
+    clients:clients
+
+}
+
+res.send(retour)
+
 
         }
-    }
+
+
+} catch (error) {
+    console.log(error)
+    res.status(500).send(error.message)
+}
+
+
+    } 
 
 }
 

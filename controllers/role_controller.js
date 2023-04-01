@@ -64,7 +64,7 @@ roleController.update = async (req, res) => {
             }
         })
         const role = await Role.findOne({
-            where: { id: rew.params.id },
+            where: { id: req.params.id },
             include: roleController.includeRole
         })
         res.status(200).send(role)

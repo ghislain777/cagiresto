@@ -29,12 +29,47 @@ notificationService.NotifierMisajourCommande = async (commande) => {
 }
 
 
+notificationService.NotifierUtilisateur = async (commande, utilisateur) => {
+
+    console.log(`Notification de l'utilisateur ${utilisateur.nom}`)
+    try {
+    const notificationpush = {
+        notification: notificationService.getNotificationUtilisateur(commande),
+        data:{
+            id: commande.id.toString(),
+            model: "commande",
+            objet: "misajour"
+        },
+        android: {
+            priority: "high",
+            ttl: 86400000
+        },
+        token:utilisateur.token
+    }
+   await  admin.messaging().send(notificationpush).then((`Envoi de la notification push réussie`))
+      
+    }
+     catch (error) {
+
+        console.log(`Problème lors de l'envoi de la notification push...`)
+        console.log(error)
+    }
+}
+
+notificationService.getNotificationUtilisateur = (commande) => {
+
+    return {
+title: `Mise à jour de la commande #${commande.id}`,
+body: `la commande # ${commande.id} est mise à jour. nouveau Statut: ${commande.statut}`
+    }
+}
+
     notificationService.getNotification = (commande) => {
         switch (commande.statut) {
             case "Validée":
                 return {
                     title: `Validation de votre commande`,
-                    body: `Votre commande ${commande.id} a été validée et est en cours de préparation`
+                    body: `Votre commande # ${commande.id} a été validée et est en cours de préparation`
                 }
 
             case "Annulée":

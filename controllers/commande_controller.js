@@ -3,7 +3,7 @@ const { response, request } = require('express');
 const { where } = require('sequelize');
 const { Sequelize, Op } = require('sequelize');
 const fonctions = require('../fonctions');
-const { Commande, Client, Livreur, Adresse, Modedepayement, Repa, Lignecommande, sequelize, Ligneaccompagnement, Accompagnement } = require('../models');
+const { Commande, Client, Utilisateur, Livreur, Adresse, Modedepayement, Repa, Lignecommande, sequelize, Ligneaccompagnement, Accompagnement } = require('../models');
 const adresseController = require('./adresse_controller');
 const clientController = require('./client_controller');
 const modedepayementController = require('./modedepayement_controller');
@@ -138,9 +138,18 @@ commandeController.getAll = async (req, res) => {
     }
 }
 
+// Mise à jour de la commande
 commandeController.update = async (req, res) => {
 
     const ancienneCommande = await Commande.findByPk(req.params.id)
+
+    const idRoleCuisinier = 2;
+
+    const cuisiniers = await Utilisateur.findAll({
+        where:{
+            role: [1,2]
+        }
+    })
 
     try {
         const response = await Commande.update(req.body, {
@@ -151,6 +160,11 @@ commandeController.update = async (req, res) => {
         const c = await Commande.findOne({
             where: { id: req.params.id },
             include: commandeController.includeCommande
+        })
+        // on envoi la notification push à tous les cuisiniers et des administrateur
+        cuisiniers.forEach(cuisinier => {
+            notificationService.NotifierUtilisateur(c, cuisinier)
+            
         })
 
         if (ancienneCommande.statut != c.statut) {
