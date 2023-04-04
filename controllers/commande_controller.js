@@ -12,14 +12,14 @@ const notificationService = require('../services/notification_service')
 const commandeController = {}
 
 commandeController.includeCommande = [
-    {model: Livreur},
+    { model: Livreur },
     { model: Client },
     { model: Adresse, include: adresseController.includeAdresse },
     { model: Modedepayement },
     {
         model: Lignecommande, include: [
 
-            
+
             // {model: Commande},
             { model: Repa, include: repaController.includeRepa },
             {
@@ -70,7 +70,18 @@ commandeController.add = async (req, res) => {
         }); // tous les ligneaccompagnements sont créées, on caclule le cot de la lignecommande.
     }
     //transaction.commit()
+// notification du cuisinier de la commande
+const  cuisiniers = await Utilisateur.findAll({
+    where: {
+        role: [1, 2]
+    }
+})
 
+// notification de tous les cuisiniers d'une nouvelle commande
+cuisiniers.forEach(cuisinier => {
+    notificationService.NotifierMisajourCommandeUtilisateur(lacommande, cuisinier)
+
+})
 
     const retour = await Commande.findOne({
         where: {
@@ -93,7 +104,7 @@ commandeController.add = async (req, res) => {
             }
         ]
     })
-  //  console.log(retour)
+    //  console.log(retour)
     return res.status(201).send(retour)
 
 }
@@ -146,8 +157,8 @@ commandeController.update = async (req, res) => {
     const idRoleCuisinier = 2;
 
     const cuisiniers = await Utilisateur.findAll({
-        where:{
-            role: [1,2]
+        where: {
+            role: [1, 2]
         }
     })
 
@@ -163,8 +174,8 @@ commandeController.update = async (req, res) => {
         })
         // on envoi la notification push à tous les cuisiniers et des administrateur
         cuisiniers.forEach(cuisinier => {
-            notificationService.NotifierUtilisateur(c, cuisinier)
-            
+            notificationService.NotifierMisajourCommandeUtilisateur(c, cuisinier)
+
         })
 
         if (ancienneCommande.statut != c.statut) {
@@ -194,8 +205,10 @@ commandeController.delete = async (req, res) => {
 
 commandeController.getById = async (req, res) => {
     try {
-        const response = await Commande.findOne({
-            where: { id: req.params.id },
+        const retour = await Commande.findOne({
+            where: {
+                id: req.params.id
+            },
             include: [
                 { model: Client },
                 { model: Adresse, include: adresseController.includeAdresse },
@@ -217,7 +230,7 @@ commandeController.getById = async (req, res) => {
             res.status(404).send('Commande non trouvé')
         }
         else {
-            res.status(200).send(response)
+            res.status(200).send(retour)
         }
     } catch (err) {
         res.status(500).send(err.message)
