@@ -79,7 +79,7 @@ const  cuisiniers = await Utilisateur.findAll({
 
 // notification de tous les cuisiniers d'une nouvelle commande
 cuisiniers.forEach(cuisinier => {
-    notificationService.NotifierMisajourCommandeUtilisateur(lacommande, cuisinier)
+    notificationService.NotifierNouvelleCommandeUtilisateur(lacommande, cuisinier)
 
 })
 
