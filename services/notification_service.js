@@ -85,11 +85,38 @@ notificationService.NotifierNouvelleCommandeUtilisateur = async (commande, utili
 }
 //Notification pour les administrateurs et les cuisiiers
 notificationService.getNotificationMisajourCommandeUtilisateur = (commande) => {
+    switch (commande.statut) {
+        case "Validée":
+            return {
+                title: `Validation de la commande # ${commande.id}`,
+                body: `La commande # ${commande.id} a été validée et est en cours de préparation`
+            }
 
-    return {
-        title: `Mise à jour de la commande #${commande.id}`,
-        body: `La commande # ${commande.id} est mise à jour. nouveau Statut: ${commande.statut}`
+        case "Annulée":
+            return {
+                title: `Annulation de la commande # ${commande.id}`,
+                body: `La commande ${commande.id} a été annulée`
+            }
+
+        case "En cours de livraison":
+            return {
+                title: `Expédition de la commande # ${commande.id}`,
+                body: `La commande ${commande.id} est en cours de livraison`
+            }
+            case "Livrée":
+            return {
+                title: `Livraison de la commande # ${commande.id}`,
+                body: `La commande ${commande.id} a été livrée`
+            }
+
+        default:
+            return {
+                title: `Mise à jour de la commande`,
+                body: `La commande ${commande.id} a été mise à jour. Nouveau statut: ${commande.statut}`
+            }
     }
+
+    
 }
 
 notificationService.getNotificationNouvelleCommandeUtilisateur = (commande) => {
@@ -105,20 +132,25 @@ notificationService.getNotification = (commande) => {
     switch (commande.statut) {
         case "Validée":
             return {
-                title: `Validation de votre commande`,
+                title: `Validation de votre commande # ${commande.id}`,
                 body: `Votre commande # ${commande.id} a été validée et est en cours de préparation`
             }
 
         case "Annulée":
             return {
-                title: `Annulation de votre commande`,
+                title: `Annulation de votre commande # ${commande.id}`,
                 body: `Votre commande ${commande.id} a été annulée`
             }
 
-        case "Expédié":
+        case "En cours de livraison":
             return {
-                title: `Expédition de votre commande`,
-                body: `Votre commande ${commande.id} a été expédiée`
+                title: `Expédition de votre commande # ${commande.id}`,
+                body: `Votre commande ${commande.id} est en cours de livraison`
+            }
+            case "Livrée":
+            return {
+                title: `Livraison de votre commande # ${commande.id}`,
+                body: `Votre commande ${commande.id} a été livrée`
             }
 
         default:
