@@ -492,16 +492,6 @@
                     "field": "description",
                     "seqType": "Sequelize.STRING"
                 },
-                "createdAt": {
-                    "allowNull": false,
-                    "field": "createdAt",
-                    "seqType": "Sequelize.DATE"
-                },
-                "updatedAt": {
-                    "allowNull": false,
-                    "field": "updatedAt",
-                    "seqType": "Sequelize.DATE"
-                },
                 "ville": {
                     "allowNull": true,
                     "name": "ville",
@@ -1015,16 +1005,6 @@
                     "field": "description",
                     "seqType": "Sequelize.STRING"
                 },
-                "createdAt": {
-                    "allowNull": false,
-                    "field": "createdAt",
-                    "seqType": "Sequelize.DATE"
-                },
-                "updatedAt": {
-                    "allowNull": false,
-                    "field": "updatedAt",
-                    "seqType": "Sequelize.DATE"
-                },
                 "commune": {
                     "allowNull": true,
                     "name": "commune",
@@ -1371,5 +1351,5 @@
     "path": "/Users/macbook/Documents/PROJETS/NODE/CAGIRESTAURANT/backend/migrations/_current.json",
     "backupPath": "/Users/macbook/Documents/PROJETS/NODE/CAGIRESTAURANT/backend/migrations/_current_bak.json",
     "exists": true,
-    "revision": 21
+    "revision": 22
 }

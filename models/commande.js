@@ -76,7 +76,12 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: true,
             comment: "Note du client"
-        }
+        },
+        motifannulation: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            comment: "Motif dannulation"
+        },
     }, {
         sequelize,
         modelName: 'Commande',

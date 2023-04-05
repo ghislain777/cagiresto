@@ -404,6 +404,12 @@
                     "field": "noteclient",
                     "seqType": "Sequelize.STRING"
                 },
+                "motifannulation": {
+                    "allowNull": true,
+                    "comment": "Motif dannulation",
+                    "field": "motifannulation",
+                    "seqType": "Sequelize.STRING"
+                },
                 "createdAt": {
                     "allowNull": false,
                     "field": "createdAt",
@@ -1351,5 +1357,5 @@
     "path": "/Users/macbook/Documents/PROJETS/NODE/CAGIRESTAURANT/backend/migrations/_current.json",
     "backupPath": "/Users/macbook/Documents/PROJETS/NODE/CAGIRESTAURANT/backend/migrations/_current_bak.json",
     "exists": true,
-    "revision": 22
+    "revision": 23
 }
