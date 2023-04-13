@@ -108,9 +108,9 @@ clientController.update = async (req, res) => {
 
 clientController.delete = async (req, res) => {
     try {
-        const response = await Client.destroy({
+        const response = await Client.update({deleted:true},   {
             where: {
-                id: res.params.id
+                id: req.params.id
             }
         })
         res.status(200).send('Client supprimé avec succès')
@@ -206,7 +206,7 @@ clientController.login = async (req, res) => {
                 motdepasse: motdepasse
             }
         })
-        if (client == null) {
+        if (client == null || client.deleted == true ) {
             res.status(401).send('téléphone ou mot de passe incorrect, veuillez re-éssayer')
             return
         }

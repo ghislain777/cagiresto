@@ -63,6 +63,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true,
       comment: "Photo"
+    },
+    deleted: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue:false,
+      comment: "Supprimé?"
     }
   }, {
     sequelize,

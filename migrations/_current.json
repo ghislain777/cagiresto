@@ -321,6 +321,15 @@
                     "field": "photo",
                     "seqType": "Sequelize.STRING"
                 },
+                "deleted": {
+                    "allowNull": false,
+                    "defaultValue": {
+                        "value": false
+                    },
+                    "comment": "Supprimé?",
+                    "field": "deleted",
+                    "seqType": "Sequelize.BOOLEAN"
+                },
                 "createdAt": {
                     "allowNull": false,
                     "field": "createdAt",
@@ -1354,8 +1363,8 @@
             "indexes": []
         }
     },
-    "path": "/Users/macbook/Documents/PROJETS/NODE/CAGIRESTAURANT/backend/migrations/_current.json",
-    "backupPath": "/Users/macbook/Documents/PROJETS/NODE/CAGIRESTAURANT/backend/migrations/_current_bak.json",
+    "path": "/Users/macbook/Documents/1-PROJETS/NODE/CAGIRESTAURANT/backend/migrations/_current.json",
+    "backupPath": "/Users/macbook/Documents/1-PROJETS/NODE/CAGIRESTAURANT/backend/migrations/_current_bak.json",
     "exists": true,
-    "revision": 23
+    "revision": 24
 }
