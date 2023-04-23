@@ -194,7 +194,7 @@ commandeController.delete = async (req, res) => {
     try {
         const response = await Commande.destroy({
             where: {
-                id: res.params.id
+                id: response.params.id
             }
         })
         res.status(200).send('Commande supprimé avec succès')
