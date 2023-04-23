@@ -1,5 +1,5 @@
 
-const { response, request } = require('express');
+const { response, request, response } = require('express');
 const { where } = require('sequelize');
 const { Sequelize, Op } = require('sequelize');
 const fonctions = require('../fonctions');
@@ -194,7 +194,7 @@ commandeController.delete = async (req, res) => {
     try {
         const response = await Commande.destroy({
             where: {
-                id: res.params.id
+                id: response.params.id
             }
         })
         res.status(200).send('Commande supprimé avec succès')
