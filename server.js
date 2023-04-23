@@ -1,6 +1,5 @@
 const express = require('express')
 const cors = require('cors');
-const logger = require("./services/logger")
 const { Role } = require('./models')
 const roleRoutes = require('./routes/role_routes');
 const utilisateurRoutes = require('./routes/utilisateur_routes');
